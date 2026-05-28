@@ -8,17 +8,12 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             
-            /* NEU: Hintergrundbild-Einstellungen */
-            /* Stelle sicher, dass deine Bilddatei "hintergrund.jpg" heißt und im gleichen Ordner liegt */
+            /* HINTERGRUNDBILD */
             background-image: url('hintergrund.JPEG'); 
-            
-            /* Bild wird zentriert und skaliert, um den ganzen Bildschirm zu füllen */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* Bild scrollt nicht mit */
-            
-            /* Fallback-Farbe, falls das Bild nicht lädt */
+            background-attachment: fixed;
             background-color: #f5f5f7; 
             
             display: flex;
@@ -29,26 +24,37 @@
         }
         
         .container {
-            /* Leicht transparente Hintergrundfarbe, damit das Foto durchschimmert */
+            /* Die äußere Box bleibt exakt so groß wie in deiner Vorlage */
             background: rgba(255, 255, 255, 0.9); 
-            
-            /* Unschärfe-Effekt für den Hintergrund hinter dem Container (funktioniert super auf iPhones) */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             
             padding: 30px;
             border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1); /* Schatten etwas verstärkt für besseren Kontrast */
-            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             max-width: 360px;
             width: 100%;
+            height: 380px; /* Feste Höhe, damit die Box durch das Schrumpfen des Inhalts nicht kollabiert */
             box-sizing: border-box;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        h1 { font-size: 24px; margin-bottom: 8px; color: #1d1d1f; font-weight: 600; }
-        p { font-size: 14px; color: #1d1d1f; margin-bottom: 25px; line-height: 1.4; } /* Textfarbe für bessere Lesbarkeit auf Foto angepasst */
+        /* DIESER BEREICH SCHRUMPFT DEN GESAMTEN INHALT UM 60% */
+        .scaled-content {
+            transform: scale(0.4); /* Skaliert auf 40% (also 60% kleiner) */
+            transform-origin: center;
+            width: 100%;
+            text-align: center;
+            flex-shrink: 0;
+        }
         
-        /* Der optimierte blaue Button */
+        /* Die originalen Styles aus deiner Vorlage (bleiben unberührt, werden nur mitskaliert) */
+        h1 { font-size: 24px; margin-bottom: 8px; color: #1d1d1f; font-weight: 600; margin-top: 0; }
+        p { font-size: 14px; color: #1d1d1f; margin-bottom: 25px; line-height: 1.4; } 
+        
         .wifi-button {
             display: flex;
             flex-direction: column;
@@ -61,7 +67,7 @@
             color: white;
             transition: background-color 0.2s, transform 0.1s;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); /* Schatten für besseren Kontrast */
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
         }
         
         .wifi-button:active {
@@ -80,33 +86,33 @@
             width: 160px;
             height: 160px;
             display: block;
-            /* Invertiert den Code perfekt auf Weiß */
             filter: invert(1) contrast(100); 
             border-radius: 8px;
         }
         
         .hint {
             font-size: 12px;
-            color: #1d1d1f; /* Textfarbe angepasst */
+            color: #1d1d1f; 
             margin-top: 20px;
+            margin-bottom: 0;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Gäste-WLAN</h1>
-    <p>Willkommen bei uns zu Hause! Halte den Daumen einfach <strong>kurz gedrückt</strong> auf dem blauen Button, um dich zu verbinden.</p>
-    
-    <!-- Der blaue Button, der in Wahrheit den QR-Code hält -->
-    <div class="wifi-button">
-        <span class="button-text">Gedrückt halten zum Verbinden</span>
+    <div class="scaled-content">
+        <h1>Gäste-WLAN</h1>
+        <p>Willkommen bei uns zu Hause! Halte den Daumen einfach <strong>kurz gedrückt</strong> auf dem blauen Button, um dich zu verbinden.</p>
         
-        <!-- HIER WLAN-NAME UND PASSWORT EINTRAGEN -->
-        <img class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=WIFI:S:DEIN_WLAN_NAME;T:WPA;P:DEIN_WLAN_PASSWORT;;" alt="WLAN QR Code">
-    </div>
+        <div class="wifi-button">
+            <span class="button-text">Gedrückt halten zum Verbinden</span>
+            
+            <img class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=WIFI:S:DEIN_WLAN_NAME;T:WPA;P:DEIN_WLAN_PASSWORT;;" alt="WLAN QR Code">
+        </div>
 
-    <p class="hint">(Android-Nutzer können den Code einfach direkt mit der Kamera scannen)</p>
+        <p class="hint">(Android-Nutzer können den Code einfach direkt mit der Kamera scannen)</p>
+    </div>
 </div>
 
 </body>
