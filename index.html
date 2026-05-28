@@ -6,48 +6,89 @@
     <title>WLAN Login</title>
     <style>
         body {
-            font-family: -apple-system, sans-serif;
-            background-color: #f5f5f7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            
+            /* NEU: Hintergrundbild-Einstellungen */
+            /* Stelle sicher, dass deine Bilddatei "hintergrund.jpg" heißt und im gleichen Ordner liegt */
+            background-image: url('hintergrund.jpg'); 
+            
+            /* Bild wird zentriert und skaliert, um den ganzen Bildschirm zu füllen */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Bild scrollt nicht mit */
+            
+            /* Fallback-Farbe, falls das Bild nicht lädt */
+            background-color: #f5f5f7; 
+            
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
         }
+        
         .container {
-            background: white;
+            /* Leicht transparente Hintergrundfarbe, damit das Foto durchschimmert */
+            background: rgba(255, 255, 255, 0.9); 
+            
+            /* Unschärfe-Effekt für den Hintergrund hinter dem Container (funktioniert super auf iPhones) */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); /* Schatten etwas verstärkt für besseren Kontrast */
             text-align: center;
             max-width: 360px;
             width: 100%;
+            box-sizing: border-box;
         }
-        h1 { font-size: 24px; margin-bottom: 10px; color: #1d1d1f; }
-        p { font-size: 14px; color: #86868b; margin-bottom: 25px; line-height: 1.4; }
         
-        /* Die blaue Fläche, die in Wahrheit der QR-Code ist */
-        .qr-button-container {
-            display: inline-block;
+        h1 { font-size: 24px; margin-bottom: 8px; color: #1d1d1f; font-weight: 600; }
+        p { font-size: 14px; color: #1d1d1f; margin-bottom: 25px; line-height: 1.4; } /* Textfarbe für bessere Lesbarkeit auf Foto angepasst */
+        
+        /* Der optimierte blaue Button */
+        .wifi-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background-color: #0071e3;
             padding: 20px;
-            border-radius: 16px;
-            transition: background-color 0.2s;
+            border-radius: 18px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.2s, transform 0.1s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); /* Schatten für besseren Kontrast */
         }
-        .qr-button-container:active {
+        
+        .wifi-button:active {
             background-color: #005bb5;
+            transform: scale(0.98);
         }
+        
+        .button-text {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 15px;
+            letter-spacing: -0.2px;
+        }
+        
         .qr-image {
-            width: 200px;
-            height: 200px;
+            width: 160px;
+            height: 160px;
             display: block;
-            /* Macht den QR-Code weiß-transparent, damit er auf dem blauen Button cool aussieht */
+            /* Invertiert den Code perfekt auf Weiß */
             filter: invert(1) contrast(100); 
+            border-radius: 8px;
         }
+        
         .hint {
             font-size: 12px;
-            color: #86868b;
-            margin-top: 15px;
+            color: #1d1d1f; /* Textfarbe angepasst */
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -55,15 +96,17 @@
 
 <div class="container">
     <h1>Gäste-WLAN</h1>
-    <p><strong>Für iPhones:</strong> Drücke 1 Sekunde lang fest auf das blaue Feld und wähle im Menü <br><strong>"Netzwerk beitreten"</strong>.</p>
+    <p>Willkommen bei uns zu Hause! Halte den Daumen einfach <strong>kurz gedrückt</strong> auf dem blauen Button, um dich zu verbinden.</p>
     
-    <!-- Die blaue Fläche mit dem integrierten QR-Code -->
-    <div class="qr-button-container">
-        <!-- ERSETZE UNTEN: DEIN_WLAN_NAME und DEIN_WLAN_PASSWORT -->
-        <img class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WIFI:S:Celine;T:WPA;P:celinejustin0106;;" alt="WLAN QR Code">
+    <!-- Der blaue Button, der in Wahrheit den QR-Code hält -->
+    <div class="wifi-button">
+        <span class="button-text">Gedrückt halten zum Verbinden</span>
+        
+        <!-- HIER WLAN-NAME UND PASSWORT EINTRAGEN -->
+        <img class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=WIFI:S:DEIN_WLAN_NAME;T:WPA;P:DEIN_WLAN_PASSWORT;;" alt="WLAN QR Code">
     </div>
 
-    <p class="hint">(Android-Nutzer können das Feld einfach mit der Kamera scannen)</p>
+    <p class="hint">(Android-Nutzer können den Code einfach direkt mit der Kamera scannen)</p>
 </div>
 
 </body>
