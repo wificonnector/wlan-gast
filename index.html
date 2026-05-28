@@ -1,3 +1,10 @@
+Verständlich! Wenn die weiße Box zu groß ist, verdeckt sie natürlich das Beste am ganzen Setup – euer Foto.
+
+Ich habe das Design jetzt deutlich kompakter gebaut: Die Box ist schmaler, der QR-Code im Button etwas kleiner, und ich habe den Kasten noch ein Stück transparenter gemacht. Dadurch rückt euer Bild komplett in den Fokus.
+
+Hier ist der schlankere Code für deine index.html:
+
+HTML
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -7,20 +14,12 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            
-            /* NEU: Hintergrundbild-Einstellungen */
-            /* Stelle sicher, dass deine Bilddatei "hintergrund.jpg" heißt und im gleichen Ordner liegt */
             background-image: url('hintergrund.JPEG'); 
-            
-            /* Bild wird zentriert und skaliert, um den ganzen Bildschirm zu füllen */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* Bild scrollt nicht mit */
-            
-            /* Fallback-Farbe, falls das Bild nicht lädt */
+            background-attachment: fixed;
             background-color: #f5f5f7; 
-            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -29,39 +28,49 @@
         }
         
         .container {
-            /* Leicht transparente Hintergrundfarbe, damit das Foto durchschimmert */
-            background: rgba(255, 255, 255, 0.9); 
+            /* Höhere Transparenz (0.75 statt 0.9), damit das Foto richtig durchscheint */
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             
-            /* Unschärfe-Effekt für den Hintergrund hinter dem Container (funktioniert super auf iPhones) */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1); /* Schatten etwas verstärkt für besseren Kontrast */
+            /* Box deutlich schmaler gemacht */
+            max-width: 280px; 
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             text-align: center;
-            max-width: 360px;
             width: 100%;
             box-sizing: border-box;
         }
         
-        h1 { font-size: 24px; margin-bottom: 8px; color: #1d1d1f; font-weight: 600; }
-        p { font-size: 14px; color: #1d1d1f; margin-bottom: 25px; line-height: 1.4; } /* Textfarbe für bessere Lesbarkeit auf Foto angepasst */
+        h1 { 
+            font-size: 20px; /* Kleiner */
+            margin-top: 0;
+            margin-bottom: 6px; 
+            color: #1d1d1f; 
+            font-weight: 600; 
+        }
         
-        /* Der optimierte blaue Button */
+        p { 
+            font-size: 12px; /* Kleiner */
+            color: #1d1d1f; 
+            margin-bottom: 18px; 
+            line-height: 1.3; 
+        }
+        
         .wifi-button {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: #0071e3;
-            padding: 20px;
-            border-radius: 18px;
+            padding: 12px; /* Kompakter */
+            border-radius: 14px;
             text-decoration: none;
             color: white;
             transition: background-color 0.2s, transform 0.1s;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); /* Schatten für besseren Kontrast */
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.25);
         }
         
         .wifi-button:active {
@@ -71,24 +80,22 @@
         
         .button-text {
             font-weight: 600;
-            font-size: 16px;
-            margin-bottom: 15px;
-            letter-spacing: -0.2px;
+            font-size: 13px; /* Kleiner */
+            margin-bottom: 10px;
         }
         
         .qr-image {
-            width: 160px;
-            height: 160px;
+            width: 120px; /* Von 160px auf 120px verkleinert */
+            height: 120px;
             display: block;
-            /* Invertiert den Code perfekt auf Weiß */
             filter: invert(1) contrast(100); 
-            border-radius: 8px;
+            border-radius: 6px;
         }
         
         .hint {
-            font-size: 12px;
-            color: #1d1d1f; /* Textfarbe angepasst */
-            margin-top: 20px;
+            font-size: 11px; /* Kleiner */
+            color: #222;
+            margin-top: 12px;
         }
     </style>
 </head>
@@ -96,17 +103,15 @@
 
 <div class="container">
     <h1>Gäste-WLAN</h1>
-    <p>Willkommen bei uns zu Hause! Halte den Daumen einfach <strong>kurz gedrückt</strong> auf dem blauen Button, um dich zu verbinden.</p>
+    <p>Button <strong>gedrückt halten</strong> zum Verbinden.</p>
     
-    <!-- Der blaue Button, der in Wahrheit den QR-Code hält -->
     <div class="wifi-button">
-        <span class="button-text">Gedrückt halten zum Verbinden</span>
+        <span class="button-text">Gedrückt halten</span>
         
-        <!-- HIER WLAN-NAME UND PASSWORT EINTRAGEN -->
-        <img class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=WIFI:S:DEIN_WLAN_NAME;T:WPA;P:DEIN_WLAN_PASSWORT;;" alt="WLAN QR Code">
+        <img class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=WIFI:S:DEIN_WLAN_NAME;T:WPA;P:DEIN_WLAN_PASSWORT;;" alt="WLAN QR Code">
     </div>
 
-    <p class="hint">(Android-Nutzer können den Code einfach direkt mit der Kamera scannen)</p>
+    <p class="hint">(Oder mit Android scannen)</p>
 </div>
 
 </body>
